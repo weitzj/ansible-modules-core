@@ -728,10 +728,10 @@ class DockerManager(object):
                   'tty':          self.module.params.get('tty'),
                   }
 
-        if params['dns'] is not None:
+        if params.get('dns', None):
             self.ensure_capability('dns')
 
-        if params['volumes_from'] is not None:
+        if params.get('volumes_from', None):
             self.ensure_capability('volumes_from')
 
         extra_params = {}
@@ -783,7 +783,7 @@ class DockerManager(object):
             'network_mode': self.module.params.get('net'),
         }
 
-        optionals = []
+        optionals = {}
         for optional_param in ('dns', 'volumes_from', 'restart_policy', 'restart_policy_retry'):
             optionals[optional_param] = self.module.params.get(optional_param)
 
